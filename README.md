@@ -4,7 +4,7 @@ json字符串校验、反序列化JSON字符串成Golang对象、反序列化JSO
 ## 主要特性
 * json字符串校验
 * 反序列化JSON字符串成Golang对象
-* 反序列化JSON字符串成Golang代码
+* 反序列化JSON字符串成Golang结构体、get、set方法
 
 ## 示例
 #### json字符串有效性校验
