@@ -88,7 +88,7 @@ func Test_json_array111(t *testing.T) {
 	data := `{
   "id": [
     -524042.5,
-    23123144444
+    2312314444455555555555555
   ],
   "name": "酷旅-mob-otv-2",
   "male": true,

@@ -612,8 +612,11 @@ func (d *decodeState) literalStore(item []byte) *JsonObject {
 
 	default: // number
 		s := string(item)
-		indexDrop := strings.Index(s, ".")
-		if c != '-' && (c < '0' || c > '9') && indexDrop != -1 && indexDrop > 15 {
+		numberLength := strings.Index(s, ".")
+		if numberLength == -1 {
+			numberLength = len(s)
+		}
+		if (c != '-' && (c < '0' || c > '9')) || (numberLength > 15) {
 			d.error(fmt.Errorf("json: invalid use of ,string struct tag, trying to unmarshal %q into number", item))
 			return &JsonObject{}
 		}
