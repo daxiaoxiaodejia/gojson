@@ -14,6 +14,7 @@ import (
 	"reflect"
 	"runtime"
 	"strconv"
+	"strings"
 	"unicode"
 	"unicode/utf16"
 	"unicode/utf8"
@@ -445,9 +446,9 @@ func (d *decodeState) indirect(v reflect.Value, decodingNull bool) (Unmarshaler,
 
 // array consumes an array from d.data[d.off-1:], decoding into the value v.
 // the first byte of the array ('[') has been read already.
-func (d *decodeState) array() *JsonObject{
-	object:= &JsonObject{
-		VType:reflect.Slice,
+func (d *decodeState) array() *JsonObject {
+	object := &JsonObject{
+		VType: reflect.Slice,
 	}
 	values := []*JsonObject{}
 	for {
@@ -462,7 +463,7 @@ func (d *decodeState) array() *JsonObject{
 		d.scan.undo(op)
 
 		value := d.value()
-		values = append(values,value)
+		values = append(values, value)
 
 		// Next token must be , or ].
 		op = d.scanWhile(scanSkipSpace)
@@ -506,7 +507,6 @@ func (d *decodeState) object() *JsonObject {
 		if !ok {
 			d.error(errPhase)
 		}
-		fmt.Println(string(key))
 
 		// Read : before value.
 		if op == scanSkipSpace {
@@ -611,19 +611,34 @@ func (d *decodeState) literalStore(item []byte) *JsonObject {
 		}
 
 	default: // number
-		if c != '-' && (c < '0' || c > '9') {
-			d.error(fmt.Errorf("json: invalid use of ,string struct tag, trying to unmarshal %q into int64", item))
-		}
 		s := string(item)
-		n, err := strconv.ParseFloat(s, 64)
-		if err != nil {
-			d.saveError(&UnmarshalTypeError{Value: "number " + s, Offset: int64(d.off)})
-			break
+		indexDrop := strings.Index(s, ".")
+		if c != '-' && (c < '0' || c > '9') && indexDrop != -1 && indexDrop > 15 {
+			d.error(fmt.Errorf("json: invalid use of ,string struct tag, trying to unmarshal %q into number", item))
+			return &JsonObject{}
 		}
-		return &JsonObject{
-			Value: n,
-			VType: reflect.Float64,
+		if strings.Contains(s, ".") {
+			n, err := strconv.ParseFloat(s, 64)
+			if err != nil {
+				d.saveError(&UnmarshalTypeError{Value: "number " + s, Offset: int64(d.off)})
+				break
+			}
+			return &JsonObject{
+				Value: n,
+				VType: reflect.Float64,
+			}
+		} else {
+			n, err := strconv.ParseInt(s, 10, 64)
+			if err != nil {
+				d.saveError(&UnmarshalTypeError{Value: "number " + s, Offset: int64(d.off)})
+				break
+			}
+			return &JsonObject{
+				Value: n,
+				VType: reflect.Int64,
+			}
 		}
+
 	}
 	return &JsonObject{}
 }

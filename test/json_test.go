@@ -3,7 +3,7 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"go-jsonObject"
+	"gojson"
 	"testing"
 )
 
@@ -70,6 +70,25 @@ func Test_json_array(t *testing.T) {
   "id": [
     -524042.5,
     231231.2
+  ],
+  "name": "酷旅-mob-otv-2",
+  "male": true,
+  "other": null
+}`
+	object, err := gojson.FromBytes([]byte(data))
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		jsonBytes, _ := json.Marshal(object)
+		fmt.Println(string(jsonBytes))
+	}
+}
+
+func Test_json_array111(t *testing.T) {
+	data := `{
+  "id": [
+    -524042.5,
+    23123144444
   ],
   "name": "酷旅-mob-otv-2",
   "male": true,
