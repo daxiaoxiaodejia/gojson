@@ -102,3 +102,27 @@ func Test_json_array111(t *testing.T) {
 		fmt.Println(string(jsonBytes))
 	}
 }
+
+
+
+func Test_json_array_parse(t *testing.T) {
+	data := `{
+  "id": [
+    -524042.5,
+    2312314444
+  ],
+  "name": "酷旅-mob-otv-2",
+  "male": true,
+  "other": null
+}`
+	object, err := gojson.FromBytes([]byte(data))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	idArray:=object.GetJsonObject("id").GetJsonArray()
+	for i,v:=range idArray{
+		fmt.Println(i,v.GetFloat64())
+		fmt.Println(i,v.GetInt64())
+	}
+}
