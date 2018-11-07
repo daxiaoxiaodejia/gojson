@@ -7,8 +7,13 @@ import (
 	"testing"
 )
 
-type OtherInfo struct {
-	Age int
+
+func Test_Validator(t *testing.T) {
+	data := `{"id":5240423333333333333333,"name":"酷旅-mob-otv-2","male":true,"other":null}`
+	err := gojson.CheckValid([]byte(data))
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func Test_json(t *testing.T) {
