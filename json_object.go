@@ -67,3 +67,11 @@ func (j *JsonObject) GetInt64() int64 {
 	}
 	return 0
 }
+
+// 获取整型值
+func (j *JsonObject) GetInterface() interface{} {
+	if j == nil && j.VType != reflect.Struct {
+		return nil
+	}
+	return j.Value
+}
