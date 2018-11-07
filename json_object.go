@@ -1,4 +1,7 @@
 package gojson
+
+import "reflect"
+
 type JsonObjectType int
 const (
 	JsonObjectTypeBool JsonObjectType = iota
@@ -11,14 +14,13 @@ const (
 )
 
 type JsonObject struct {
-	data map[string]interface{}
+	Attributes map[string]*JsonObject
+	Value interface{}
+	VType reflect.Kind
 	//dataType
 
 }
 
 func(j *JsonObject) GetString(key string) string {
 	return ""
-}
-func FromBytes(data []byte) (*JsonObject, error) {
-	return nil, nil
 }

@@ -1,21 +1,80 @@
 package test
 
 import (
-	"testing"
+	"encoding/json"
+	"fmt"
 	"go-jsonObject"
+	"testing"
 )
 
 type OtherInfo struct {
 	Age int
 }
 
-func Test_json(t*testing.T)  {
-	data:=`{"id":524042,"name":"酷旅-mob-otv-2","male":true,"other":null}`
-	stu := struct {
-		Id int
-		Name string
-		Male bool
-		Other *OtherInfo
-	}{}
-	gojson.Unmarshal([]byte(data),&stu)
+func Test_json(t *testing.T) {
+	data := `{"id":524042,"name":"酷旅-mob-otv-2","male":true,"other":null}`
+	object, err := gojson.FromBytes([]byte(data))
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		jsonBytes, _ := json.Marshal(object)
+		fmt.Println(string(jsonBytes))
+	}
+}
+
+func Test_json22(t *testing.T) {
+	data := `{
+  "id": 524042,
+  "name": "酷旅-mob-otv-2",
+  "male": true,
+  "other": null
+}`
+	object, err := gojson.FromBytes([]byte(data))
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		jsonBytes, _ := json.Marshal(object)
+		fmt.Println(string(jsonBytes))
+	}
+}
+
+func Test_json_object(t *testing.T) {
+	data := `{
+  "id": -524042.5,
+  "name": "酷旅-mob-otv-2",
+  "male": true,
+  "children": {
+    "id": -524042.5,
+    "name": "酷旅-mob-otv-2",
+    "male": true,
+    "other": null
+  },
+  "other": null
+}`
+	object, err := gojson.FromBytes([]byte(data))
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		jsonBytes, _ := json.Marshal(object)
+		fmt.Println(string(jsonBytes))
+	}
+}
+
+func Test_json_array(t *testing.T) {
+	data := `{
+  "id": [
+    -524042.5,
+    231231.2
+  ],
+  "name": "酷旅-mob-otv-2",
+  "male": true,
+  "other": null
+}`
+	object, err := gojson.FromBytes([]byte(data))
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		jsonBytes, _ := json.Marshal(object)
+		fmt.Println(string(jsonBytes))
+	}
 }
