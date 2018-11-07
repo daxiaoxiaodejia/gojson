@@ -1,6 +1,18 @@
 # go-jsonObject
 json字符串校验、反序列化JSON字符串成Golang对象、反序列化JSON字符串成Golang代码
 
+## 安装
+1. 使用go get
+```bash
+go get github.com/ChengjinWu/gojson
+```
+2. 导入包
+```go
+import (
+	"github.com/ChengjinWu/gojson"
+)
+```
+
 ## 主要特性
 * json字符串校验
 * 反序列化JSON字符串成Golang对象
