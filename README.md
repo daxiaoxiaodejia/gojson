@@ -16,7 +16,7 @@ import (
 ## 主要特性
 * json字符串校验（JSON string validation）
 * 反序列化JSON字符串成Golang对象（deserializing JSON strings into Golang objects）
-* 反序列化JSON字符串成Golang结构体、get、set方法（* deserializing JSON strings into Golang code）
+* 反序列化JSON字符串成Golang结构体、get、set方法（deserializing JSON strings into Golang code）
 
 ## 示例
 #### json字符串有效性校验
