@@ -1,7 +1,5 @@
 # go-jsonObject
-json字符串校验、反序列化JSON字符串成Golang对象、反序列化JSON字符串成Golang代码
-
-JSON string validation, deserializing JSON strings into Golang objects, deserializing JSON strings into Golang code
+json字符串校验、反序列化JSON字符串成Golang对象、反序列化JSON字符串成Golang代码（JSON string validation, deserializing JSON strings into Golang objects, deserializing JSON strings into Golang code）
 
 ## 安装
 1. 使用go get
@@ -16,12 +14,9 @@ import (
 ```
 
 ## 主要特性
-* json字符串校验
-* JSON string validation
-* 反序列化JSON字符串成Golang对象
-* deserializing JSON strings into Golang objects
-* 反序列化JSON字符串成Golang结构体、get、set方法
-* deserializing JSON strings into Golang code
+* json字符串校验（JSON string validation）
+* 反序列化JSON字符串成Golang对象（deserializing JSON strings into Golang objects）
+* 反序列化JSON字符串成Golang结构体、get、set方法（* deserializing JSON strings into Golang code）
 
 ## 示例
 #### json字符串有效性校验
